@@ -30,7 +30,8 @@ test_result = test.iloc[:,-1]
 train = train.drop(["Drug"], axis=1)
 test = test.drop(["Drug"], axis=1)
 
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
 
 dpt = 4
 tree = DecisionTreeClassifier(criterion="entropy", max_depth=dpt)
@@ -40,3 +41,10 @@ from sklearn import metrics
 print("Depth value:", dpt)
 print("Train set Accuracy: ", metrics.accuracy_score(train_result, tree.predict(train)))
 print("Test set Accuracy: ", metrics.accuracy_score(test_result, tree.predict(test)))
+
+import matplotlib.pyplot as plt
+
+# Karar ağacını görselleştirme
+plt.figure(figsize=(20,10))  # Gerekirse figür boyutunu ayarlayabilirsiniz
+plot_tree(tree, filled=True, feature_names=train.columns)
+plt.show()
