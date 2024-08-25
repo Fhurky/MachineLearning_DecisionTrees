@@ -13,10 +13,17 @@ data['BP'] = pd.factorize(data['BP'])[0] + 1
 data['Cholesterol'] = pd.factorize(data['Cholesterol'])[0] + 1
 data['Drug'] = pd.factorize(data['Drug'])[0] + 1
 
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaler.fit(data)
+data_scaled = scaler.transform(data)
+
+data_scaled = pd.DataFrame(data_scaled, columns=data.columns)
+
 from sklearn.model_selection import train_test_split
 
 train, test = train_test_split(data, train_size=0.2, random_state=53)
-
 train_result = train.iloc[:,-1]
 test_result = test.iloc[:,-1]
 
